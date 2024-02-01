@@ -21,7 +21,7 @@ app.post('/', async (req, res) => {
 
 
     const params = {
-        access_key: '7db0f9f4c0ce882512c8ed4ccd59aae5',
+        access_key: `${process.env.MARKETSTACK_API_KEY}`,
         symbols: ticker,
         date_from: '2024-01-21',
         date_to: '2024-01-31'
