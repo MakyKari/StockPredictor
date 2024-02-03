@@ -1,17 +1,19 @@
 const searchTickerForm = document.getElementById('searchTickerForm')
 
-searchTickerForm.addEventListener('submit', function(event){
+var historyData = []
+
+searchTickerForm.addEventListener('submit', async function(event){
     event.preventDefault()
     let tickerName = document.getElementById('tickerName').value
-    const response = fetch('/', {
+    const HistoryDataPromise = fetch('/', {
         method: "POST",
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify({ ticker : tickerName})
     })
-    .then(response => response.json()).then(response => 
-        {console.log(response.historicalData)}
-    )
     
+    historyData = await HistoryDataPromise.then(response => response.json()).then(data => data.historyOfStock)
+    console.log(historyData)
+    drawGraph(historyData)
 })
